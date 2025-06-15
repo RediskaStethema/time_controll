@@ -1,0 +1,31 @@
+{
+  "PORT": 3005,
+  "SOCKET":"started at http://localhost:",
+  "skipRouts":[
+    "GET /api/all"
+  ],
+  "pathroles": {
+    "POST /api/employee/new/:role": ["hr", "supervisor"],
+    "DELETE /api/employee/:id": ["supervisor"],
+    "GET /api/employee/all": ["hr", "supervisor", "manager"],
+    "GET /api/employee/:id": ["hr", "supervisor", "manager"],
+    "PATCH /api/employee/changeRole": ["supervisor"],
+    "PUT /api/employee/changenames": ["hr", "supervisor"],
+    "PATCH /api/employee/change/:id/:password": ["crew", "hr", "supervisor"],
+
+
+  "GET /fired/": [ "hr", "manager"],
+  "GET /fired/:id": ["hr", "supervisor"],
+  "GET /fired/hours/:id": ["hr"],
+  "DELETE /fired/deleteEMP/:id": ["hr"],
+
+
+    "POST /check/checkIN/:id": ["crew", "hr", "supervisor"],
+    "POST /check/checkOUT/:id": ["crew", "hr", "supervisor"],
+    "POST /check/fixed/:id": ["hr","manager"]
+
+  }
+
+
+
+}
