@@ -5,13 +5,15 @@ import {configurations} from "../../app-config/configure.js";
 
 export const authorize = (arr: Record<string, Role[]>) =>
     (req: authreq, res: Response, next: NextFunction): void => {
-        const fullPath = `${req.method} ${req.baseUrl}${req.path}`;  // <-- пробел между методом и путём!
+        const fullPath = `${req.method} ${req.path}`;
         console.log("Checking skip:", fullPath);
+        console.log( `${req.method} - first ${req.path}- thrift`)
 
         const roles = req.roles;
         const allowedRoles = arr[fullPath];
+        const fullPath_2=fullPath.split("/emp/")[0] + "/"
 
-        if (configurations.skipRouts.includes(fullPath)) {
+        if (configurations.skipRouts.includes(fullPath_2)) {
             console.log("Skipped route by config");
             return next();
         }

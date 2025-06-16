@@ -37,7 +37,9 @@ export const Authent=( service:AccountingService)=>{
 
 export const skiprouts = (skips: string[]) =>
     (req: authreq, res: Response, next: NextFunction) => {
-        const pathmethod = `${req.method} ${req.baseUrl}${req.path}`;
+        const pathmethod_Old = `${req.method} ${req.path}`;
+        const pathmethod=pathmethod_Old.split("/emp/")[0] + "/"
+
         console.log('Checking skip:', pathmethod);
 
         if (!skips.includes(pathmethod) && !req.id) {

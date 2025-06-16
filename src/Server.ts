@@ -31,14 +31,13 @@ export const launchServer = () => {
     app.use(morgan("dev"));
     app.use(morgan("combined", { stream: LogStream }));
     app.use(express.json());
-
     app.use(Authent(configurations.service_acc));
     app.use(skiprouts(configurations.skipRouts) as express.RequestHandler);
+    app.use (authorize(configurations.pathroles as Record<string, Role[]>))
 
-
-    app.use("/api", authorize(configurations.pathroles as Record<string, Role[]>), employeeRouter);
-    app.use("/fired", authorize(configurations.pathroles as Record<string, Role[]>), firedRouter);
-    app.use("/check", authorize(configurations.pathroles as Record<string, Role[]>), checkRouter);
+    app.use("/api", employeeRouter);
+    app.use("/fired", firedRouter);
+    app.use("/check", checkRouter);
 
     app.use(errHandl);
 };

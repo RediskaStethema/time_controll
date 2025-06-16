@@ -52,10 +52,16 @@ Promise.resolve(Employee)
     }
 
     async hireEmploye(emoloyeDTO: EmployeeDto, role: Role): Promise<Employee> {
-        // Проверка, был ли уволен
-        const checking = await model_fire_employee.findOne({ id: emoloyeDTO.id });
+
+        const checking = await model_fire_employee.findOne({ id: emoloyeDTO.id  as string});
+        console.log(checking)
+        const cheking_exists = await model_EMPLOYEE.find({ id: emoloyeDTO.id  as string});
+        console.log(cheking_exists)
         if (checking) {
-            throw new Error(`This employee ${emoloyeDTO.lastName} was fired`);
+           throw new Error(`This employee ${emoloyeDTO.lastName} was fired`);
+        }
+        if (cheking_exists.length>0) {
+          throw  new Error(`This employee ${emoloyeDTO.lastName} exist`);
         }
 
 

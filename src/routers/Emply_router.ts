@@ -1,7 +1,7 @@
 import express from "express";
 import {Employ_controller} from "../controllers/Employ_controller.js";
 import asyncHandler from "express-async-handler"
-import {emplDTOSCHEMA, EmployeeDto, SCHEMA_Role} from "../model/Employee.js";
+import {authreq, emplDTOSCHEMA, EmployeeDto, SCHEMA_Role} from "../model/Employee.js";
 import {Role} from "../utils/timeControlTypes.js";
 
 export const employeeRouter= express.Router();
@@ -9,8 +9,8 @@ export const controller=new Employ_controller()
 
 // создание сотрудника
 employeeRouter.post(
-    "/new/:role",
-    asyncHandler(async (req, res) => {
+    "/new/emp/:role",
+    asyncHandler(async (req:authreq, res) => {
         const body= req.body
         const Role=req.params.role as Role
         const { error } = emplDTOSCHEMA.validate(body)
@@ -24,8 +24,8 @@ employeeRouter.post(
 
 //удаление сотрудника
 employeeRouter.delete(
-    "/:id",
-    asyncHandler(async (req, res) => {
+    "/delete/emp/:id",
+    asyncHandler(async (req:authreq, res) => {
         const id = req.params.id as string
         const result = await controller.DELETE_Employee(id)
         res.status(200).send({ result })
@@ -35,7 +35,7 @@ employeeRouter.delete(
 //  Получить всех сотрудников
 employeeRouter.get(
     "/all",
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req:authreq, res) => {
         const result = await controller.GetAllEmployees()
         res.status(200).send({ result })
     })
@@ -43,8 +43,8 @@ employeeRouter.get(
 
 //  получить сотрудника
 employeeRouter.get(
-    "/:id",
-    asyncHandler(async (req, res) => {
+    "/byID/emp/:id",
+    asyncHandler(async (req:authreq, res) => {
         const id = req.params.id
         const result = await controller.getEmployeebyID(id)
         res.status(200).send({ result })
@@ -54,7 +54,7 @@ employeeRouter.get(
 // Изменить роль
 employeeRouter.patch(
     "/changeRole",
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req:authreq, res) => {
        const id:string=req.body.id
         const role: Role = req.body.role
         const result = await controller.ChangeRole(id,role)
@@ -65,7 +65,7 @@ employeeRouter.patch(
 // обновить данные
 employeeRouter.put(
     "/changenames",
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req:authreq, res) => {
         const body: EmployeeDto = req.body
         const { error } = emplDTOSCHEMA.validate(body)
         if (error) res.status(400).send({ error: error.details[0].message })
@@ -76,9 +76,10 @@ employeeRouter.put(
 
 // сменить пароль
 employeeRouter.patch(
-    "/change/:id/:password",
-    asyncHandler(async (req, res) => {
+    "/change/emp/:id/:password",
+    asyncHandler(async (req:authreq, res) => {
         const id = req.params.id
+        console.log(id)
         const newPassword = req.params.password
         if (!newPassword)  res.status(400).send({ error: "New password is required" })
         const result = await controller.changePass(id, newPassword)
