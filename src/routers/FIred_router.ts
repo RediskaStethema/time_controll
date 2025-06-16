@@ -22,7 +22,7 @@ firedRouter.get('/emp/:id', asyncHandler(async(req:authreq, res) => {
 
 firedRouter.get(`/hours/emp/:id`, asyncHandler(async(req:authreq, res) => {
     const id=req.params.id as string
-    if(id) res.status(401).send(`Wrong ID: ${id}`)
+    if(!id) res.status(401).send(`Wrong ID: ${id}`) //was reamark
     const result= await controller.get_houres(id)
     if(!result) res.status(404).send("Not Found")
     res.status(200).send(result)
