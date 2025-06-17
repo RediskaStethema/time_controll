@@ -34,7 +34,6 @@ export const launchServer = () => {
     app.use(Authent(configurations.service_acc));
     app.use(skiprouts(configurations.skipRouts) as express.RequestHandler);
     app.use (authorize(configurations.pathroles as Record<string, Role[]>))
-
     app.use("/api", employeeRouter);
     app.use("/fired", firedRouter);
     app.use("/check", checkRouter);

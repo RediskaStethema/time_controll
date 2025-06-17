@@ -81,3 +81,9 @@ export interface authreq extends Request {
     roles?:Role[]
 
 }
+
+export const loginSchema = Joi.object({
+    id: Joi.string().max(50).min(5).required(),
+    password: Joi.string().min(8).required()
+
+})

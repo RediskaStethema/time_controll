@@ -1,6 +1,7 @@
 import {configurations} from "../app-config/configure.js";
 import {Employee, EmployeeDto, SavedFiredEmployee} from "../model/Employee.js";
 import {Role} from "../utils/timeControlTypes.js";
+import * as sea from "node:sea";
 
 export class Employ_controller {
     private service = configurations.service_acc
@@ -31,6 +32,10 @@ export class Employ_controller {
 
     async changePass(empld: string, newPassword: string) {
         return await this.service.changePassword(empld, newPassword);
+    }
+
+    async login(body:{id:string, password:string}) {
+        return await this.service.LOGIN(body);
     }
 
 }

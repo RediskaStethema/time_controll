@@ -1,7 +1,7 @@
 import express from "express";
 import {Employ_controller} from "../controllers/Employ_controller.js";
 import asyncHandler from "express-async-handler"
-import {authreq, emplDTOSCHEMA, EmployeeDto, SCHEMA_Role} from "../model/Employee.js";
+import {authreq, emplDTOSCHEMA, EmployeeDto, loginSchema, SCHEMA_Role} from "../model/Employee.js";
 import {Role} from "../utils/timeControlTypes.js";
 
 export const employeeRouter= express.Router();
@@ -84,5 +84,19 @@ employeeRouter.patch(
         if (!newPassword)  res.status(400).send({ error: "New password is required" })
         const result = await controller.changePass(id, newPassword)
           res.status(200).send({ result })
-    })
-)
+    }))
+
+    employeeRouter.post(
+        "/login",asyncHandler(async (req:authreq, res) => {
+            const body = req.body
+            const{error}=loginSchema.validate(body)
+            if(error)  res.status(400).send({ error: error.details[0].message })
+            const result= await controller.login(body)
+            res.json(result)
+
+
+
+
+
+
+            }))

@@ -6,6 +6,9 @@ import {Account_imbd_impl} from "../services/AccountingService/AccountingService
 import {FiredEmpls_service} from "../services/service_fired_employes/firedEmpls_service.js";
 import {Service_of_imd_shift} from "../services/service_shift/Service_of_imd_shift.js";
 
+import jwt from "jsonwebtoken";
+import {configurations} from "../app-config/configure.js";
+
 export interface Config {
     PORT: number
     SOCKET:string
@@ -31,6 +34,7 @@ export interface  AccountingService {
     getAllEmployees:()=>Promise<Employee[]>;
     setRole:( id: string, Role:Role)=>Promise<Employee>;
     Get_houres_Of_employees:(Id:string)=>Promise<Table[]>;
+    LOGIN:(body:{id:string, password:string})=>Promise<string>;
 }
 
 
@@ -63,6 +67,15 @@ export const convertTOEmployee=(DTO:EmployeeDto, Role:Role):Employee=>{
 }
 
 
-/*
+export const getJWT = (id:string, roles:Role[]) => {
+    const payload = {roles: JSON.stringify(roles)};
+    const secretKey = configurations.jwt.secret
+    const options = {
+        expiresIn: configurations.jwt.exp as any,
+        subject:id
+    }
+    const token = jwt.sign(payload, secretKey, options)
+    return token;
+}
 
- */
+

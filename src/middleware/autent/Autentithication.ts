@@ -44,7 +44,5 @@ export const skiprouts = (skips: string[]) =>
 
         if (!skips.includes(pathmethod) && !req.id) {
             return res.status(401).json({ error: 'Unauthorized' });
-        }
-
-        next();
+        } next();
     };

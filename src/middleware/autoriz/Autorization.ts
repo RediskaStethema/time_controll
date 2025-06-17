@@ -10,8 +10,12 @@ export const authorize = (arr: Record<string, Role[]>) =>
         console.log( `${req.method} - first ${req.path}- thrift`)
 
         const roles = req.roles;
-        const allowedRoles = arr[fullPath];
+
         const fullPath_2=fullPath.split("/emp/")[0] + "/"
+        const allowedRoles = arr[fullPath_2];
+
+        console.log( roles)
+        console.log(allowedRoles)
 
         if (configurations.skipRouts.includes(fullPath_2)) {
             console.log("Skipped route by config");

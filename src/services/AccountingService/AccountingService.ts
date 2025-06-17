@@ -1,4 +1,4 @@
-import {AccountingService, convertTOEmployee} from "../../utils/tools.js";
+import {AccountingService, convertTOEmployee, getJWT} from "../../utils/tools.js";
 import {
     Employee,
     EmployeeDto,
@@ -98,6 +98,17 @@ Promise.resolve(Employee)
         if (!employee) throw new Error(`Employee with id ${Id} not found`);
         const arry:Table[] = await model_tub_num.find({table_num:employee.table_num})
         return Promise.resolve(arry);
+    }
+
+    async LOGIN(body:{id:string, password:string}){
+    const PROFILE=await this.getEmployeebyID(body.id)
+    if(!PROFILE) throw new Error(JSON.stringify({status: 404, message: `User ${body.id} not found`}))
+    const passwordMATCH=bcrypt.compareSync(body.password, PROFILE.hash)
+    if(!passwordMATCH) {
+        throw new Error(JSON.stringify({status: 404, message: `User ${body.id} not invalid password or login`}))
+    }
+        const token=getJWT(body.id, PROFILE.roles)
+        return Promise.resolve(token)
     }
 
 
