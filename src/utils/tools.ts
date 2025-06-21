@@ -1,13 +1,14 @@
-import {Employee, EmployeeDto, SavedFiredEmployee, Table} from "../model/Employee.js";
+import {Employee, EmployeeDto} from "../model/Employee.js";
 import {Role} from "./timeControlTypes.js";
 import bcrypt from "bcrypt";
 import {v4 as uuidv4} from "uuid";
 import {Account_imbd_impl} from "../services/AccountingService/AccountingService.js";
 import {FiredEmpls_service} from "../services/service_fired_employes/firedEmpls_service.js";
 import {Service_of_imd_shift} from "../services/service_shift/Service_of_imd_shift.js";
-
 import jwt from "jsonwebtoken";
 import {configurations} from "../app-config/configure.js";
+import {SavedFiredEmployee} from "../model/FIred_employees.js";
+import {Table} from "../model/Chekin_employees.js";
 
 export interface Config {
     PORT: number
@@ -69,7 +70,7 @@ export const convertTOEmployee=(DTO:EmployeeDto, Role:Role):Employee=>{
 
 export const getJWT = (id:string, roles:Role[]) => {
     const payload = {roles: JSON.stringify(roles)};
-    const secretKey = configurations.jwt.secret
+    const secretKey =configurations.jwt.secret
     const options = {
         expiresIn: configurations.jwt.exp as any,
         subject:id

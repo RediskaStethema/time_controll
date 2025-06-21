@@ -1,15 +1,10 @@
 import {AccountingService, convertTOEmployee, getJWT} from "../../utils/tools.js";
-import {
-    Employee,
-    EmployeeDto,
-    model_EMPLOYEE,
-    model_fire_employee, model_tub_num,
-    SavedFiredEmployee,
-    Table
-} from "../../model/Employee.js";
 import {Role} from "../../utils/timeControlTypes.js";
 import bcrypt from "bcrypt";
 import {Error} from "mongoose";
+import {Employee, EmployeeDto, model_EMPLOYEE} from "../../model/Employee.js";
+import {model_fire_employee, SavedFiredEmployee} from "../../model/FIred_employees.js";
+import {model_tub_num, Table} from "../../model/Chekin_employees.js";
 
 
 export class Account_imbd_impl implements AccountingService{
@@ -42,7 +37,7 @@ Promise.resolve(Employee)
     }
 
     async getAllEmployees(): Promise<Employee[]> {
-        return await model_EMPLOYEE.find().lean() as Employee[]; // lean() вернёт plain-объекты
+        return await model_EMPLOYEE.find().lean() as Employee[];
     }
 
     async getEmployeebyID(id: string): Promise<Employee> {

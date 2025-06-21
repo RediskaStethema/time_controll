@@ -4,8 +4,33 @@ import {configurations} from "../../app-config/configure.js";
 import jwt, {JwtPayload} from "jsonwebtoken";
 import dotenv from "dotenv";
 import {authreq} from "../../model/Employee.js";
+import bcrypt from "bcrypt";
+import {Role} from "../../utils/timeControlTypes.js";
 const BEARER="Bearer "
 dotenv.config()
+const BASIC = "Basic "
+async function basicAuth(header: string, req:authreq, service:AccountingService) {
+
+    const authToken = Buffer.from(header.substring(BASIC.length), 'base64').toString('ascii');
+    console.log(authToken);
+    const [id, password] = authToken.split(":")
+    if(id === process.env.OWNER && password === process.env.OWNER_PASS) {
+        req.id = "GOD";
+        req.roles = [Role.HR];
+    } else
+        try {
+            const account = await service.getEmployeebyID(id);
+            if(bcrypt.compareSync(password,account.hash)){
+                req.id =id;
+                req.roles = account.roles;
+                console.log("reader authenticated")
+            }
+        } catch (e) {
+            console.log("reader not authenticated")
+        }
+
+}
+
 export const Authent=( service:AccountingService)=>{
    return async (req:authreq, res:Response, next:NextFunction) => {
       const header=req.header("Authorization");
@@ -15,6 +40,9 @@ export const Authent=( service:AccountingService)=>{
           if(header?.startsWith("Bearer ")) {
               await JWTauth(header, req)
              return  next()
+          }
+          else if(header?.startsWith("Basic ")) {
+              await basicAuth(header, req, service )
           }
           console.log( "none header wrong")
       }catch(e){

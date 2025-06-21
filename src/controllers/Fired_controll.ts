@@ -2,14 +2,7 @@ import {configurations} from "../app-config/configure.js";
 
 export class Fired_controll {
     private service=configurations.service_fired
-  /*
-  export interface FiredEmpService {
-    GetaAllFiredEmployees():Promise<SavedFiredEmployee[]>;
-    GetFiredbyID(Id:string):Promise<SavedFiredEmployee>;
-    GethouresOfFIredEmployees(id:string):Promise<Table[]>;
-    DeleteEmp_From_fired(emplID:string):Promise<SavedFiredEmployee>;
-}
-   */
+
 
     async Get_all_fired_Empl(){
         return await this.service.GetaAllFiredEmployees()

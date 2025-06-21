@@ -1,7 +1,9 @@
 import {FiredEmpService} from "../../utils/tools.js";
-import {Employee, model_fire_employee, model_tub_num, SavedFiredEmployee, Table} from "../../model/Employee.js";
-import {createWriteStream} from "node:fs";
+
+
 import * as fs from "node:fs";
+import {model_fire_employee, SavedFiredEmployee} from "../../model/FIred_employees.js";
+import {model_tub_num, Table} from "../../model/Chekin_employees.js";
 
 
 

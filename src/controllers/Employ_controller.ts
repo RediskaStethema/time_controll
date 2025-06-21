@@ -1,7 +1,8 @@
 import {configurations} from "../app-config/configure.js";
-import {Employee, EmployeeDto, SavedFiredEmployee} from "../model/Employee.js";
+import {Employee, EmployeeDto} from "../model/Employee.js";
 import {Role} from "../utils/timeControlTypes.js";
-import * as sea from "node:sea";
+
+import {SavedFiredEmployee} from "../model/FIred_employees.js";
 
 export class Employ_controller {
     private service = configurations.service_acc

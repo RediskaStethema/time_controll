@@ -1,6 +1,6 @@
 import {Account_imbd_impl} from "../services/AccountingService/AccountingService.js";
 import dotenv from "dotenv";
-import appconfs from "../../config/configiur.json" with {type:'json'}
+import appconfs from "../../config/configiur.json" with {type:"json"}
 import {FiredEmpls_service} from "../services/service_fired_employes/firedEmpls_service.js";
 import {Service_of_imd_shift} from "../services/service_shift/Service_of_imd_shift.js";
 import {Config} from "../utils/tools.js";

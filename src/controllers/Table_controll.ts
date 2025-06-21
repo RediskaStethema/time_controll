@@ -3,13 +3,7 @@ import {configurations} from "../app-config/configure.js";
 export class TableControll {
     private service=configurations.service_table
 
-    /*
-    export interface Work_Shift{
-    start_of_work(id:string):Promise<boolean>;
-    end_of_work(id:string):Promise<Table>;
-    employ_on_salary(id:string):Promise<boolean>;
-}
-     */
+
     async START(id:string){
         return this.service.start_of_work(id)
     }

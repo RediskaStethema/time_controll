@@ -1,5 +1,7 @@
 import {Work_Shift} from "../../utils/tools.js";
-import {Employee, model_EMPLOYEE, model_tub_num, Table} from "../../model/Employee.js";
+import {model_tub_num, Table} from "../../model/Chekin_employees.js";
+import {Employee, model_EMPLOYEE} from "../../model/Employee.js";
+
 
 
 export class Service_of_imd_shift implements Work_Shift{
