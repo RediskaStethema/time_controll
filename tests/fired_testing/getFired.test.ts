@@ -1,6 +1,7 @@
-import { model_fire_employee, model_tub_num } from '../../src/model/Employee.js';
 import { FiredEmpls_service } from "../../src/services/service_fired_employes/firedEmpls_service.js";
-import * as fs from 'fs/promises'; // ✅ корректно
+import * as fs from 'fs/promises';
+import {model_fire_employee} from "../../src/model/FIred_employees.js";
+import {model_tub_num} from "../../src/model/Chekin_employees.js"; 
 
 jest.mock('fs/promises', () => ({
     appendFile: jest.fn()
