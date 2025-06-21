@@ -1,11 +1,7 @@
 import { Account_imbd_impl } from '../../src/services/AccountingService/AccountingService.js';
-import {
-    model_EMPLOYEE,
-    model_fire_employee,
-    model_tub_num
-} from '../../src/model/Employee.js';
-
+import {model_EMPLOYEE} from '../../src/model/Employee.js';
 import * as bcrypt from 'bcrypt';
+import {model_tub_num} from "../../src/model/Chekin_employees.js";
 jest.mock('../../src/model/Employee.js', () => ({
     model_EMPLOYEE: {
         findOne: jest.fn(),
