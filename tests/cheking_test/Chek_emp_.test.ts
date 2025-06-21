@@ -1,5 +1,6 @@
-import { model_EMPLOYEE, model_tub_num } from '../../src/model/Employee.js';
+import { model_EMPLOYEE } from '../../src/model/Employee.js';
 import { Service_of_imd_shift } from '../../src/services/service_shift/Service_of_imd_shift.js';
+import {model_tub_num} from "../../src/model/Chekin_employees.js";
 
 jest.mock('../../src/model/Employee.js', () => ({
     model_EMPLOYEE: {
